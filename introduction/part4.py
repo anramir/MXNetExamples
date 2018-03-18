@@ -13,7 +13,8 @@ https://medium.com/@julsimon/an-introduction-to-the-mxnet-api-part-5-9e78534096d
 
 def load_model(filename):
     sym, arg_params, aux_params = mx.model.load_checkpoint(filename, 0)
-    mod = mx.mod.Module(symbol=sym, context=mx.gpu(0))
+    # mod = mx.mod.Module(symbol=sym, context=mx.gpu(0)) Activate if you are using GPU
+    mod = mx.mod.Module(symbol=sym)
     mod.bind(for_training=False, data_shapes=[('data', (1, 3, 224, 224))])
     mod.set_params(arg_params, aux_params)
     return mod
@@ -70,9 +71,8 @@ def classify_image_with_model(model_name, image_name):
 
 
 if __name__ == '__main__':
-    classify_image_with_model('Inception-BN', 'Captura.jpg')
-    # classify_image_with_model('vgg16', 'Captura.jpg')
-    classify_image_with_model('resnet-152', 'Captura.jpg')
+    classify_image_with_model('Inception-BN', 'image.jpg')
+    classify_image_with_model('resnet-152', 'image.jpg')
 
 
 
